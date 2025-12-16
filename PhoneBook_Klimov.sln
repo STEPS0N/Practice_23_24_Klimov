@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PhoneBook_Klimov", "PhoneBo
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ClassConnection", "..\ClassConnection\ClassConnection.csproj", "{C80E948D-3B97-4FD9-ABA6-6500A30994B5}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ClassModule", "..\ClassModule\ClassModule.csproj", "{D21DC74E-D88D-48B6-BF47-C99631C54F87}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{C80E948D-3B97-4FD9-ABA6-6500A30994B5}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C80E948D-3B97-4FD9-ABA6-6500A30994B5}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C80E948D-3B97-4FD9-ABA6-6500A30994B5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D21DC74E-D88D-48B6-BF47-C99631C54F87}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D21DC74E-D88D-48B6-BF47-C99631C54F87}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D21DC74E-D88D-48B6-BF47-C99631C54F87}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D21DC74E-D88D-48B6-BF47-C99631C54F87}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

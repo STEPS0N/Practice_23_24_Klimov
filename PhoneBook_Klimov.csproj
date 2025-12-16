@@ -37,6 +37,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\ClassConnection\ClassConnection.csproj" />
+    <ProjectReference Include="..\ClassModule\ClassModule.csproj" />
   </ItemGroup>
 
   <ItemGroup>
