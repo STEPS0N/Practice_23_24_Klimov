@@ -36,6 +36,10 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\ClassConnection\ClassConnection.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Resource Include="img\back.png" />
     <Resource Include="img\calendar.png" />
     <Resource Include="img\calls.png" />
