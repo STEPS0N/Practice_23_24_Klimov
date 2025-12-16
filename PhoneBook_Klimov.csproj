@@ -6,6 +6,61 @@
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
     <UseWPF>true</UseWPF>
+    <ApplicationIcon>img\logo.ico</ApplicationIcon>
   </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="img\back.png" />
+    <None Remove="img\calendar.png" />
+    <None Remove="img\calls.png" />
+    <None Remove="img\del.png" />
+    <None Remove="img\in.png" />
+    <None Remove="img\logo.png" />
+    <None Remove="img\ok.png" />
+    <None Remove="img\out.png" />
+    <None Remove="img\people.png" />
+    <None Remove="img\plus.png" />
+    <None Remove="img\redac.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="img\logo.ico" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="img\ok.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Elements\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="img\back.png" />
+    <Resource Include="img\calendar.png" />
+    <Resource Include="img\calls.png" />
+    <Resource Include="img\del.png" />
+    <Resource Include="img\in.png" />
+    <Resource Include="img\logo.png" />
+    <Resource Include="img\out.png" />
+    <Resource Include="img\people.png" />
+    <Resource Include="img\plus.png" />
+    <Resource Include="img\redac.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Update="Properties\Resources.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Update="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+  </ItemGroup>
 
 </Project>
