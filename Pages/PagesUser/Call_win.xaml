@@ -1,0 +1,79 @@
+﻿<Page x:Class="PhoneBook_Klimov.Pages.PagesUser.Call_win"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:PhoneBook_Klimov.Pages.PagesUser"
+      mc:Ignorable="d" 
+      d:DesignHeight="550" d:DesignWidth="700"
+      Title="Call_win">
+
+    <Border CornerRadius="10">
+        <Border.Background>
+            <SolidColorBrush Color="White" Opacity="1.0"/>
+        </Border.Background>
+
+        <Grid>
+            <Grid.Resources>
+                <ResourceDictionary Source="/Resource/BtnRes.xaml"/>
+            </Grid.Resources>
+
+            <ScrollViewer x:Name="scroll_user">
+                <Border x:Name="Info_user" MinHeight="530">
+                    <Grid>
+                        <Label Content="Звонок" Margin="39,28,26,0" Foreground="Black" FontSize="30" FontFamily="Yu Gotic UI Semibold"
+                           HorizontalContentAlignment="Left" Height="52" VerticalAlignment="Top"/>
+
+                        <Label Content="Клиент" Margin="42,85,26,0" Foreground="Black" FontSize="15" FontFamily="Yu Gotic UI Semilight"
+                           HorizontalContentAlignment="Left" Height="29" VerticalAlignment="Top"/>
+                        <ComboBox x:Name="user_select" Height="30" FontSize="14" FontFamily="Yu Gotic UI Semilight"
+                           Background="#FFDEDEDE" Margin="42,114,243,0" VerticalAlignment="Top"/>
+
+                        <Label Content="Категория звонка" Margin="42,145,26,0" Foreground="Black" FontSize="15" FontFamily="Yu Gotic UI Semilight"
+                           HorizontalContentAlignment="Left" Height="29" VerticalAlignment="Top"/>
+                        <ComboBox x:Name="call_category_text" Height="30" FontSize="14" FontFamily="Yu Gotic UI Semilight"
+                           Background="#FFDEDEDE" Margin="42,174,243,0" VerticalAlignment="Top"/>
+
+                        <Label Content="Начало звонка" Margin="39,211,232,0" Foreground="Black" FontSize="15" FontFamily="Yu Gotic UI Semilight"
+                           HorizontalContentAlignment="Left" Height="29" VerticalAlignment="Top"/>
+                        <Grid Margin="30,229,126,265">
+                            <DatePicker Style="{StaticResource styleDatePicker}" x:Name="date_start_call"
+                                        Height="35" Margin="9,10,214,0" VerticalAlignment="Top"
+                                        FontFamily="Yu Gotic UI Light" FontSize="14"/>
+                            <TextBox Style="{StaticResource BaseBox}" x:Name="time_start" Height="35"
+                                     Background="#FFDEDEDE" Margin="0,10,19,0" VerticalAlignment="Top"
+                                     HorizontalAlignment="Right" Width="185"/>
+                        </Grid>
+
+                        <Label Content="Конец звонка" Margin="39,275,232,0" Foreground="Black" FontSize="15" FontFamily="Yu Gotic UI Semilight"
+                               HorizontalContentAlignment="Left" Height="29" VerticalAlignment="Top"/>
+                        <Grid Margin="30,296,126,198">
+                            <DatePicker Style="{StaticResource styleDatePicker}" x:Name="date_end_call"
+                                        Height="35" Margin="9,10,214,0" VerticalAlignment="Top"
+                                        FontFamily="Yu Gotic UI Light" FontSize="14"/>
+                            <TextBox Style="{StaticResource BaseBox}" x:Name="time_finish" Height="35"
+                                     Background="#FFDEDEDE" Margin="0,10,19,0" VerticalAlignment="Top"
+                                     HorizontalAlignment="Right" Width="185"/>
+                        </Grid>
+
+
+                        <Button Style="{StaticResource BtnRedac}" Margin="0,0,136,24" VerticalAlignment="Bottom"
+                            Height="40" HorizontalAlignment="Right" Width="105" Click="Click_Call_Redact">
+                            <Image Source="/img/redac.png" Width="20" Height="20"/>
+                        </Button>
+
+                        <Button x:Name="btn_cancel" Style="{StaticResource BtnRedac}" Background="#FFE48F2B" Margin="0,0,26,24" VerticalAlignment="Bottom"
+                            Height="40" HorizontalAlignment="Right" Width="105" Click="Click_Cancel_Call_Redact">
+                            <Image Source="/img/back.png"  Width="20" Height="20"/>
+                        </Button>
+
+                        <Button x:Name="btn_remove" Style="{StaticResource BtnRedac}" Background="#FFE42B2B" Margin="30,0,0,24" VerticalAlignment="Bottom"
+                            Height="40" HorizontalAlignment="Left" Width="105" Click="Click_Remove_Call_Redact">
+                            <Image Source="/img/del.png"  Width="20" Height="20"/>
+                        </Button>
+                    </Grid>
+                </Border>
+            </ScrollViewer>
+        </Grid>
+    </Border>
+</Page>
