@@ -9,6 +9,7 @@ using System.Windows.Data;
 using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
+using System.Windows.Media.Animation;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
@@ -20,9 +21,18 @@ namespace PhoneBook_Klimov.Pages
     /// </summary>
     public partial class Main : Page
     {
+        public enum page_main
+        {
+            users, calls, none
+        };
+
+        public static page_main page_select;
+
         public Main()
         {
             InitializeComponent();
+
+            page_select = page_main.none;
         }
 
         private void Click_History(object sender, MouseButtonEventArgs e)
@@ -33,6 +43,49 @@ namespace PhoneBook_Klimov.Pages
         private void Click_Phone(object sender, MouseButtonEventArgs e)
         {
 
+        }
+
+        public void Anim_move(Control control1, Control control2, Frame frame_main = null, Page pages = null, page_main page_restart = page_main.none)
+        {
+            if (page_restart != page_main.none)
+            {
+                if (page_restart == page_main.users)
+                {
+                    page_select = page_main.none;
+                    //Click_Phone(new object(), new RoutedEventArgs());
+                }
+                else if (page_restart == page_main.calls)
+                {
+                    page_select = page_main.none;
+                    //Click_History(new object(), new RoutedEventArgs());
+                }
+            }
+            else
+            {
+                DoubleAnimation opGridAnimation = new DoubleAnimation();
+                opGridAnimation.From = 1;
+                opGridAnimation.To = 0;
+                opGridAnimation.Duration = TimeSpan.FromSeconds(0.3);
+                opGridAnimation.Completed += delegate
+                {
+                    if (pages != null)
+                    {
+                        frame_main.Navigate(pages);
+                    }
+
+                    control1.Visibility = Visibility.Hidden;
+                    control2.Visibility = Visibility.Visible;
+
+                    DoubleAnimation opgriAnimation = new DoubleAnimation();
+                    opgriAnimation.From = 0;
+                    opgriAnimation.To = 1;
+                    opgriAnimation.Duration = TimeSpan.FromSeconds(0.4);
+
+                    control2.BeginAnimation(ScrollViewer.OpacityProperty, opgriAnimation);
+                };
+
+                control1.BeginAnimation(ScrollViewer.OpacityProperty, opGridAnimation);
+            }
         }
     }
 }

@@ -11,6 +11,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using ClassConnection;
+using ClassModule;
 
 namespace PhoneBook_Klimov
 {
@@ -29,9 +30,9 @@ namespace PhoneBook_Klimov
 
             connect = new Connection();
 
-            connect.LoadData(Connection.tables.users);
+            connect.LoadData(Connection.tabels.users);
 
-            connect.LoadData(Connection.tables.calls);
+            connect.LoadData(Connection.tabels.calls);
 
             main = new Pages.Main();
 

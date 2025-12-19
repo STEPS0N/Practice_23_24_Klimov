@@ -36,6 +36,10 @@
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="System.Data.OleDb" Version="10.0.1" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\ClassConnection\ClassConnection.csproj" />
     <ProjectReference Include="..\ClassModule\ClassModule.csproj" />
   </ItemGroup>
