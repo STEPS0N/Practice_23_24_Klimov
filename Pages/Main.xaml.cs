@@ -1,4 +1,7 @@
-﻿using System;
+﻿using ClassConnection;
+using ClassModule;
+using PhoneBook_Klimov.Elements;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -35,14 +38,100 @@ namespace PhoneBook_Klimov.Pages
             page_select = page_main.none;
         }
 
-        private void Click_History(object sender, MouseButtonEventArgs e)
+        private void Click_History(object sender, RoutedEventArgs e)
         {
+            if (frame_main.Visibility == Visibility.Visible)
+            {
+                MainWindow.main.Anim_move(MainWindow.main.frame_main, MainWindow.main.scroll_main);
+            }
+            if (page_select != page_main.calls)
+            {
+                page_select = page_main.calls;
 
+                DoubleAnimation opgridAnimation = new DoubleAnimation();
+                opgridAnimation.From = 0;
+                opgridAnimation.To = 1;
+                opgridAnimation.Duration = TimeSpan.FromSeconds(0.2);
+                opgridAnimation.Completed += delegate
+                {
+                    parent.Children.Clear();
+                    DoubleAnimation opgriAnimation = new DoubleAnimation();
+                    opgriAnimation.From = 0;
+                    opgriAnimation.To = 1;
+                    opgriAnimation.Duration = TimeSpan.FromSeconds(0.2);
+                    opgriAnimation.Completed += delegate
+                    {
+                        Dispatcher.InvokeAsync(async () =>
+                        {
+                            MainWindow.connect.LoadData(Connection.tabels.calls);
+
+                            foreach (Call call_itm in MainWindow.connect.calls)
+                            {
+                                if (page_select == page_main.calls)
+                                {
+                                    parent.Children.Add(new Call_itm(call_itm));
+                                    await Task.Delay(90);
+                                }
+                            }
+                            if (page_select == page_main.calls)
+                            {
+                                var ff = new PagesUser.Call_win(new Call());
+                                parent.Children.Add(new Add_itm(ff));
+                            }
+                        });
+                    };
+                    parent.BeginAnimation(StackPanel.OpacityProperty, opgriAnimation);
+                };
+                parent.BeginAnimation(StackPanel.OpacityProperty, opgridAnimation);
+            }
         }
 
-        private void Click_Phone(object sender, MouseButtonEventArgs e)
+        private void Click_Phone(object sender, RoutedEventArgs e)
         {
+            if (frame_main.Visibility == Visibility.Visible)
+            {
+                MainWindow.main.Anim_move(MainWindow.main.frame_main, MainWindow.main.scroll_main);
+            }
+            if (page_select != page_main.users)
+            {
+                page_select = page_main.users;
 
+                DoubleAnimation opgridAnimation = new DoubleAnimation();
+                opgridAnimation.From = 1;
+                opgridAnimation.To = 0;
+                opgridAnimation.Duration = TimeSpan.FromSeconds(0.2);
+                opgridAnimation.Completed += delegate
+                {
+                    parent.Children.Clear();
+                    DoubleAnimation opgriAnimation = new DoubleAnimation();
+                    opgriAnimation.From = 0;
+                    opgriAnimation.To = 1;
+                    opgriAnimation.Duration = TimeSpan.FromSeconds(0.2);
+                    opgriAnimation.Completed += delegate
+                    {
+                        Dispatcher.InvokeAsync(async () =>
+                        {
+                            MainWindow.connect.LoadData(Connection.tabels.users);
+
+                            foreach (User user_itm in MainWindow.connect.users)
+                            {
+                                if (page_select == page_main.users)
+                                {
+                                    parent.Children.Add(new User_itm(user_itm));
+                                    await Task.Delay(90);
+                                }
+                            }
+                            if (page_select == page_main.users)
+                            {
+                                var ff = new PagesUser.User_win(new User());
+                                parent.Children.Add(new Add_itm(ff));
+                            }
+                        });
+                    };
+                    parent.BeginAnimation(StackPanel.OpacityProperty, opgriAnimation);
+                };
+                parent.BeginAnimation(StackPanel.OpacityProperty, opgridAnimation);
+            }
         }
 
         public void Anim_move(Control control1, Control control2, Frame frame_main = null, Page pages = null, page_main page_restart = page_main.none)
@@ -52,12 +141,12 @@ namespace PhoneBook_Klimov.Pages
                 if (page_restart == page_main.users)
                 {
                     page_select = page_main.none;
-                    //Click_Phone(new object(), new RoutedEventArgs());
+                    Click_Phone(new object(), new RoutedEventArgs());
                 }
                 else if (page_restart == page_main.calls)
                 {
                     page_select = page_main.none;
-                    //Click_History(new object(), new RoutedEventArgs());
+                    Click_History(new object(), new RoutedEventArgs());
                 }
             }
             else
