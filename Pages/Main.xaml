@@ -50,11 +50,57 @@
                                Height="30" VerticalAlignment="Top"/>
                     </Grid>
                 </Border>
-                
             </StackPanel>
         </Grid>
 
-        <Border Margin="10,133,10,10" CornerRadius="10">
+        <Border Margin="10,140,10,0" Height="51" VerticalAlignment="Top" CornerRadius="10" Background="White">
+            <StackPanel Orientation="Horizontal">
+                <Border>
+                    <Grid>
+                        <Label Content="От: " Margin="5,0,0,0" Foreground="#FF2C2C2C" FontSize="15"
+                               FontFamily="Corbel" VerticalContentAlignment="Center" HorizontalContentAlignment="Left"
+                               Height="30" VerticalAlignment="Center"/>
+                    </Grid>
+                </Border>
+                <Border>
+                    <Grid>
+                        <DatePicker Style="{StaticResource styleDatePicker}" x:Name="date_start"
+                                    Height="35" Width="150" Margin="5,0,9,0" VerticalAlignment="Center"
+                                    FontFamily="Yu Gotic UI Light" FontSize="14"/>
+                    </Grid>
+                </Border>
+                <Border>
+                    <Grid>
+                        <Label Content="До: " Margin="5,0,0,0" Foreground="#FF2C2C2C" FontSize="15"
+                               FontFamily="Corbel" HorizontalAlignment="Left"
+                               Height="30" VerticalAlignment="Center"/>
+                    </Grid>
+                </Border>
+                <Border>
+                    <Grid>
+                        <DatePicker Style="{StaticResource styleDatePicker}" x:Name="date_end"
+                    Height="35" Width="150" Margin="5,0,9,0" VerticalAlignment="Center"
+                    FontFamily="Yu Gotic UI Light" FontSize="14"/>
+                    </Grid>
+                </Border>
+                <Border>
+                    <Grid>
+                        <Button  Content="Поиск" x:Name="btn_cancel" Style="{StaticResource BtnRedac}" Background="#FFE48F2B" Margin="0,0,0,6" VerticalAlignment="Bottom"
+                                Height="40" HorizontalAlignment="Left" Width="105" Click="Click_Search_Data">
+                        </Button>
+                    </Grid>
+                </Border>
+                <Border>
+                    <Grid>
+                        <Button  Content="Очистить" x:Name="btn_del" Style="{StaticResource BtnRedac}" Background="Red" Margin="10,0,0,6" VerticalAlignment="Bottom"
+                                 Height="40" HorizontalAlignment="Left" Width="105" Click="Click_Del">
+                        </Button>
+                    </Grid>
+                </Border>
+            </StackPanel>
+        </Border>
+
+        <Border Margin="10,205,10,10" CornerRadius="10">
             <Border.Background>
                 <SolidColorBrush Color="White" Opacity="1.0"/>
             </Border.Background>

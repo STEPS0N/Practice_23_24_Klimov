@@ -29,19 +29,39 @@ namespace PhoneBook_Klimov.Pages.PagesUser
 
             call_itm = _call;
 
-            if (_call.time_start != null)
+            if (_call.time_start != null && _call.time_end != null)
             {
                 string[] dateTimeStart = _call.time_start.Split(' ');
-                string[] dateStart = dateTimeStart[0].Split('.');
-                date_start_call.SelectedDate = new DateTime(int.Parse(dateStart[2]), int.Parse(dateStart[1]), int.Parse(dateStart[0]));
-                time_start.Text = dateTimeStart[1];
-
                 string[] dateTimeFinish = _call.time_end.Split(' ');
-                string[] dateFinish = dateTimeFinish[0].Split('.');
-                date_end_call.SelectedDate = new DateTime(int.Parse(dateFinish[2]), int.Parse(dateFinish[1]), int.Parse(dateFinish[0]));
-                time_finish.Text = dateTimeFinish[1];
+
+                if (dateTimeStart.Length == 2 && dateTimeFinish.Length == 2)
+                {
+                    string[] dateStart = dateTimeStart[0].Split('.');
+                    string[] dateFinish = dateTimeFinish[0].Split('.');
+
+                    if (dateStart.Length == 3 && dateFinish.Length == 3)
+                    {
+                        try
+                        {
+                            date_start_call.SelectedDate = new DateTime(
+                                int.Parse(dateStart[2]),
+                                int.Parse(dateStart[1]),
+                                int.Parse(dateStart[0]) 
+                            );
+                            time_start.Text = dateTimeStart[1];
+
+                            date_end_call.SelectedDate = new DateTime(
+                                int.Parse(dateFinish[2]),
+                                int.Parse(dateFinish[1]),
+                                int.Parse(dateFinish[0])
+                            );
+                            time_finish.Text = dateTimeFinish[1];
+                        }
+                        catch {}
+                    }
+                }
             }
-            else
+            if (_call.time_start == null || _call.time_end == null)
             {
                 time_start.Text = "00:00";
                 time_finish.Text = "00:00";
@@ -122,10 +142,12 @@ namespace PhoneBook_Klimov.Pages.PagesUser
                     {
                         int id = MainWindow.connect.SetLastId(ClassConnection.Connection.tabels.calls);
 
-                        string query = $"INSERT INTO [calls]([Код], [user_id], [category_call], [date], [time_start], [time_end]) VALUES ({id.ToString()}, " +
-                            $"'{id_temp_user.id.ToString()}', '{id_calls_categ.ToString()}', '{date_start_call.SelectedDate.Value.ToString().Split(' ')[0]}', " +
-                            $"'{date_start_call.SelectedDate.Value.ToString().Split(' ')[0]} {time_finish.Text}', " +
-                            $"'{date_end_call.SelectedDate.Value.ToString().Split(' ')[0]} {time_finish.Text}'";
+                        string dateStartStr = date_start_call.SelectedDate.Value.ToString("dd.MM.yyyy");
+                        string dateEndStr = date_end_call.SelectedDate.Value.ToString("dd.MM.yyyy");
+
+                        string query = $"INSERT INTO [calls]([Код], [user_id], [category_call], [date], [time_start], [time_end]) " +
+                                       $"VALUES ({id}, {id_temp_user.id}, {id_calls_categ}, '{dateStartStr}', " +
+                                       $"'{dateStartStr} {time_start.Text}', '{dateEndStr} {time_finish.Text}')";
 
                         var pc = MainWindow.connect.QueryAccess(query);
 
@@ -211,9 +233,12 @@ namespace PhoneBook_Klimov.Pages.PagesUser
             {
                 if (str1[0].Trim() != "" && str1[1].Trim() != "")
                 {
-                    if (int.Parse(str1[0]) >= 0 && int.Parse(str1[1]) <= 23)
+                    int hours = int.Parse(str1[0]);
+                    int minutes = int.Parse(str1[1]);
+
+                    if (hours >= 0 && hours <= 23)
                     {
-                        if (int.Parse(str1[1]) >= 0 && int.Parse(str1[1]) <= 59)
+                        if (minutes >= 0 && minutes <= 59)
                         {
                             return true;
                         }

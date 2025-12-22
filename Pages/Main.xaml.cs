@@ -24,6 +24,7 @@ namespace PhoneBook_Klimov.Pages
     /// </summary>
     public partial class Main : Page
     {
+
         public enum page_main
         {
             users, calls, none
@@ -175,6 +176,54 @@ namespace PhoneBook_Klimov.Pages
 
                 control1.BeginAnimation(ScrollViewer.OpacityProperty, opGridAnimation);
             }
+        }
+
+        private void Click_Search_Data(object sender, RoutedEventArgs e)
+        {
+            if (page_select != page_main.calls)
+            {
+                MessageBox.Show("Фильтр доступен только в 'Истории звонков'");
+                return;
+            }
+
+            if (date_start.SelectedDate == null || date_end.SelectedDate == null)
+            {
+                MessageBox.Show("Укажите обе даты!");
+                return;
+            }
+
+            MainWindow.connect.LoadData(Connection.tabels.calls);
+
+            var start = date_start.SelectedDate.Value.Date;
+            var end = date_end.SelectedDate.Value.Date.AddDays(1).AddTicks(-1);
+
+            parent.Children.Clear();
+
+            foreach (var call in MainWindow.connect.calls)
+            {
+                if (DateTime.TryParseExact(call.time_start, "dd.MM.yyyy HH:mm", null,
+                                           System.Globalization.DateTimeStyles.None, out var callDate))
+                {
+                    if (callDate >= start && callDate <= end)
+                    {
+                        parent.Children.Add(new Call_itm(call));
+                    }
+                }
+            }
+
+            parent.Children.Add(new Add_itm(new PagesUser.Call_win(new Call())));
+        }
+
+        private void Click_Del(object sender, RoutedEventArgs e)
+        {
+            if (page_select == page_main.calls)
+            {
+                MainWindow.connect.LoadData(ClassConnection.Connection.tabels.calls);
+                MainWindow.main.Anim_move(MainWindow.main.frame_main, MainWindow.main.scroll_main, null, null, Main.page_main.calls);
+            }
+
+            date_start.SelectedDate = null;
+            date_end.SelectedDate = null;
         }
     }
 }

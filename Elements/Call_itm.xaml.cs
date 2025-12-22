@@ -31,43 +31,50 @@ namespace PhoneBook_Klimov.Elements
             InitializeComponent();
             cal_loc = _call;
 
-            if (_call.time_end != null)
+            User user_loc = MainWindow.connect.users.Find(x => x.id == _call.user_id);
+            if (user_loc != null)
             {
-                User user_loc = MainWindow.connect.users.Find(x => x.id == _call.user_id);
-                category_call_text.Content = user_loc.fio_user.ToString();
-
-                string[] dateLoc1 = _call.time_start.ToString().Split(' ');
-                string[] dateLoc2 = _call.time_end.ToString().Split(' ');
-
-                string[] date1 = (dateLoc1[0]).Split('.');
-                string[] date2 = (dateLoc2[0]).Split('.');
-
-                DateTime dateStart = new DateTime(int.Parse(date1[2]),
-                    int.Parse(date1[1]),
-                    int.Parse(date1[0]),
-                    int.Parse(dateLoc1[1].Split(':')[0]),
-                    int.Parse(dateLoc1[1].Split(':')[1]), 0);
-
-                DateTime dateFinish = new DateTime(int.Parse(date2[2]),
-                    int.Parse(date2[1]),
-                    int.Parse(date2[0]),
-                    int.Parse(dateLoc2[1].Split(':')[0]),
-                    int.Parse(dateLoc2[1].Split(':')[1]), 0);
-                TimeSpan dateEnd = dateFinish.Subtract(dateStart);
-
-                time_call_text.Content = "Продолжительность звонка: " + dateEnd.ToString();
-                number_call_text.Content = "Номер телефона: " + user_loc.phone_num.ToString();
+                category_call_text.Content = user_loc.fio_user;
+                number_call_text.Content = "Номер телефона: " + user_loc.phone_num;
+            }
+            else
+            {
+                category_call_text.Content = "Неизвестный пользователь";
+                number_call_text.Content = "Номер не найден";
             }
 
-            img_category_call.Source =
-                (_call.category_call == 1)?
-                new BitmapImage(new Uri(@"/img/out.png", UriKind.RelativeOrAbsolute)) : new BitmapImage(new Uri(@"/img/in.png", UriKind.RelativeOrAbsolute));
+            if (!string.IsNullOrEmpty(_call.time_start))
+            {
+                time_call_text.Content = "Начало: " + _call.time_start;
+            }
+            else
+            {
+                time_call_text.Content = "Время начала не задано";
+            }
 
-            DoubleAnimation opgridAnimation = new DoubleAnimation();
-            opgridAnimation.From = 0;
-            opgridAnimation.To = 1;
-            opgridAnimation.Duration = TimeSpan.FromSeconds(0.4);
-            border.BeginAnimation(StackPanel.OpacityProperty, opgridAnimation);
+            if (!string.IsNullOrEmpty(_call.time_start) && !string.IsNullOrEmpty(_call.time_end))
+            {
+                try
+                {
+                    DateTime start = DateTime.ParseExact(_call.time_start, "dd.MM.yyyy HH:mm", null);
+                    DateTime end = DateTime.ParseExact(_call.time_end, "dd.MM.yyyy HH:mm", null);
+                    if (end >= start)
+                    {
+                        TimeSpan duration = end - start;
+                        time_call_text.Content += $"\nДлительность: {duration.Hours:00}:{duration.Minutes:00}:{duration.Seconds:00}";
+                    }
+                }
+                catch
+                { }
+            }
+
+            img_category_call.Source = (_call.category_call == 1)
+                ? new BitmapImage(new Uri("/img/out.png", UriKind.RelativeOrAbsolute))
+                : new BitmapImage(new Uri("/img/in.png", UriKind.RelativeOrAbsolute));
+
+            border.Opacity = 0;
+            var anim = new DoubleAnimation(1, TimeSpan.FromSeconds(0.3));
+            border.BeginAnimation(UIElement.OpacityProperty, anim);
         }
 
         private void Click_redact(object sender, RoutedEventArgs e)
